@@ -9,7 +9,7 @@ if(isset($_SESSION['id']) && isset($_SESSION['name'])){
     header('Location: login.php');
     exit();
 }
-/*post_idのチェック*/
+/*post_idの受け取り*/
 $post_id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 if(!$post_id){
     header('Location: index.php');

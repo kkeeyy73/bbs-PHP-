@@ -51,7 +51,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body class="text-center">
   <main class="form-signin w-100 m-auto">
-    <h1 class="h3 mb-3 fw-normal">サインインをどうぞ</h1>
+    <h1 class="text-success">ひとこと掲示板</h1>
+    <h4 class="mb-3 fw-normal">サインインをどうぞ</h4>
     <p class="fs-6">フォームに必要事項をご記入ください。</p>
     <form action="" method="post" enctype="multipart/form-data">
       <div class="form-floating">

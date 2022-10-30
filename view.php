@@ -29,7 +29,7 @@ $db = dbconnect();
 </head>
 <body class="container text-center">
   <main class="form-bbs w-100 m-auto bg-white">
-    <h1 class="h3 pt-4 mb-3 fw-normal">ひとこと掲示板</h1>
+    <h1 class="h3 pt-4 mb-3 fw-normal text-success">ひとこと掲示板</h1>
     <p><a href="index.php">一覧にもどる</a></p>
     
    <!--memberdb,postdbからデータを取得-->

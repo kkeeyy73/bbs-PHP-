@@ -1,6 +1,10 @@
 <?php
 session_start();
 require('library.php');
+
+/*変数の初期化*/
+$error = '';
+
 /*ログインチェック*/
 if(isset($_SESSION['id']) && isset($_SESSION['name'])){
     $id = $_SESSION['id'];
@@ -15,17 +19,23 @@ $db = dbconnect();
 /*メッセージの投稿 */
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $message = h($_POST['message']);
-    $stmt = $db->prepare('insert into posts(member_id,message) values(?,?)');
-    if(!$stmt){
-        die($db->error);
+    /*禁止文字が含まれていなければデータベースへ登録*/
+    if(strpos_array($message, $ngword) === FALSE){
+        $stmt = $db->prepare('insert into posts(member_id,message) values(?,?)');
+        if(!$stmt){
+            die($db->error);
+        }
+        $stmt->bind_param('is', $id, $message);
+        $success = $stmt->execute();
+        if(!$success){
+            die($db->error);
+        }
+        header('Location: index.php');
+        exit();
+    }else {
+        /*禁止文字が含まれていた場合は、エラーを返す*/
+        $error = "NG";
     }
-    $stmt->bind_param('is', $id, $message);
-    $success = $stmt->execute();
-    if(!$success){
-        die($db->error);
-    }
-    header('Location: index.php');
-    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -38,16 +48,19 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <title>ひとこと掲示板</title>
 </head>
 <body class="container text-center">
-  <main class="form-bbs w-100 m-auto bg-white">
-    <h1 class="h3 pt-4 mb-3 fw-normal">ひとこと掲示板</h1>
+  <main class="form-bbs w-100 m-auto">
+    <h1 class="pt-4 mb-3 fw-normal text-success">ひとこと掲示板</h1>
     <form action="" method="post">
         <dl>
-            <dt class="text-decoration-underline"><?php echo h($name); ?>さん、メッセージをどうぞ</dt>
+            <dt class="text-decoration-underline"><?php echo h($name); ?>さん、メッセージをどうぞ(50文字まで)</dt>
             <dd>
-                <textarea name="message" cols="50" rows="5" lass="form-control" id="exampleFormControlTextarea1"></textarea>
+                <textarea name="message" cols="50" rows="5" maxlength="50" lass="form-control" id="exampleFormControlTextarea1"></textarea>
+                <?php if($error === "NG"): ?>
+                    <p class="text-danger">*&nbsp;禁止文字が含まれています。</p>
+                <?php endif; ?>
             </dd>
         </dl>
-        <input class="btn btn-primary btn-sm mb-2" type="submit" value="投稿する"><br>
+        <input class="btn btn-outline-success btn-sm mb-2 pb-2" type="submit" value="投稿する"><br>
         <a href="logout.php">ログアウト</a>
    </form>
    <!--memberdb,postdbからデータを取得-->
@@ -66,13 +79,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
          while($stmt->fetch()):
     ?>
-            <div class="msg card mx-auto mt-3" style="width: 50rem">
-                <div class="card-header">
-                    <p>名前: <span><?php echo h($name); ?></span>
-                    <span class="day"><a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created); ?></a>
+            <div class="msg card mx-auto mt-3 w-50">
+                <div class="card-header w-auto text-sm-start">
+                    <p>名前:&emsp;<?php echo h($name); ?>
+                    <span class="day">&emsp;<a href="view.php?id=<?php echo h($id); ?>"><?php echo h($created); ?></a></span>
                     </p>
                 </div>
-                <ul class="list-group list-group-flush">
+                <ul class="list-group list-group-flush w-auto bg-light">
                     <li class="list-group-item"><p class="message"><?php echo h($message); ?></p>
                                                 <p class="deleate"><?php if($_SESSION['id'] === $member_id): ?>
                                                 [<a href="delete.php?id=<?php echo h($id); ?>" class="text-danger">削除</a>]

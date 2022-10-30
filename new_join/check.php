@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('../library.php');
-
+/*フォーム入力情報の受け取り*/
 $form = $_SESSION['form'];
 /*入力チェック */
 if (isset($_SESSION['form'])){
@@ -10,13 +10,14 @@ if (isset($_SESSION['form'])){
 	header('Location: index.php');
 	exit;
 }
-/*入力データ登録*/
+/*入力情報をデータベースへ登録*/
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 	$db = dbconnect();
 	$stmt = $db->prepare('INSERT INTO members(username,password)VALUES(?,?)');
 	if(!$stmt){
 		die($db->eroor);
 	}
+	/*パスワードのハッシュ化*/
 	$password = password_hash($form['password'],PASSWORD_DEFAULT);
 	$stmt->bind_param('ss',$form['name'],$password);
 	$success = $stmt->execute();
@@ -38,7 +39,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body class="container text-center">
   <main class="form-confirm w-100 m-auto bg-white">
-    <h1 class="h3 pt-4 mb-3 fw-normal">新規登録</h1>
+	<h1 class="text-success">ひとこと掲示板</h1>
+    <h4 class="pt-4 mb-3 fw-normal">新規登録</h4>
     <p class="fs-6">記入した内容を確認して、「登録する」ボタンをクリックしてください</p>
     <form action="" method="post">
         <dl>
