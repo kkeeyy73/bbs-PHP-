@@ -6,7 +6,7 @@ function h($value){
 
 /*データベースへ接続 */
 function dbconnect(){
-    $db = new mysqli('localhost','root','2221','bbsdb');
+    $db = new mysqli('','','','');
     if(!$db){
 		die($db->error);
 	}
@@ -14,7 +14,7 @@ function dbconnect(){
 }
 
 /*指定文字*/
-$ngword = ['死', 'しね', 'しぬ', '殺', 'コロス', 'さつがい', 'サツガイ', 'ちんこ', 'うんこ', 'まんこ', 'ちんちん', 'sex', 'SEX'];
+$ngword = [];
 
 /*strposを配列で使用*/
 function strpos_array($haystack, $needle, $is_index = FALSE){
