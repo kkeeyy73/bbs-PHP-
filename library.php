@@ -7,7 +7,8 @@ function h($value){
 /*データベースへ接続 */
 function dbconnect(){
     $db = new mysqli('','','','');
-    if(!$db){
+    
+	if(!$db){
 		die($db->error);
 	}
     return $db;
