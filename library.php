@@ -6,12 +6,9 @@ function h($value){
 
 /*データベースへ接続 */
 function dbconnect(){
-<<<<<<< HEAD
-    $db = new mysqli('mysql209.phy.lolipop.lan','LAA1473327','Akb2101','LAA1473327-bbsdb');
-=======
     $db = new mysqli('','','','');
->>>>>>> 5b4c3d475ecd4f708087a37be8ee22e3aa853137
-    if(!$db){
+    
+	if(!$db){
 		die($db->error);
 	}
     return $db;
