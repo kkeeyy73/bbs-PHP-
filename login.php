@@ -1,7 +1,7 @@
 <?php
 session_start();
 require('library.php');
-
+//変数の初期化
 $error = [];
 $name = '';
 $password = '';
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body class="text-center">
   <main class="form-signin w-100 m-auto">
-    <h1 class="text-success">ひとこと掲示板</h1>
+    <h1 class="text-success mb-5">ひとこと掲示板</h1>
     <h4 class="mb-3 fw-normal">サインインをどうぞ</h4>
     <p class="fs-6">フォームに必要事項をご記入ください。</p>
     <form action="" method="post" enctype="multipart/form-data">
@@ -72,7 +72,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
       </div>
       <button class="w-100 btn btn-lg btn-success mt-2" type="submit">サインイン</button>
       <div class="h4 mt-3 fs-6 fw-light">
-        <a href="new_join/index.php">新規の方はこちら</a>
+        <a href="join/index.php">新規の方はこちら</a>
       </div>
       <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
    </form>

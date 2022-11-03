@@ -6,7 +6,7 @@ function h($value){
 
 /*データベースへ接続 */
 function dbconnect(){
-    $db = new mysqli('localhost','root','2221','bbsdb');
+    $db = new mysqli('mysql209.phy.lolipop.lan','LAA1473327','Akb2101','LAA1473327-bbsdb');
     if(!$db){
 		die($db->error);
 	}

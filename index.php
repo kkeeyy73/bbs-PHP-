@@ -48,8 +48,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
   <title>ひとこと掲示板</title>
 </head>
 <body class="container text-center">
-  <main class="form-bbs w-100 m-auto">
-    <h1 class="pt-4 mb-3 fw-normal text-success">ひとこと掲示板</h1>
+  <main class="form-bbs w-100 m-auto bg-light">
+    <h1 class="pb-4 mb-4 fw-normal text-success">ひとこと掲示板</h1>
     <form action="" method="post">
         <dl>
             <dt class="text-decoration-underline"><?php echo h($name); ?>さん、メッセージをどうぞ(50文字まで)</dt>

@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $form['password'] = h($_POST['password']);                    
     if ($form['password'] === ''){
         $error['password'] = 'blank';
-    } else if(mb_strlen($form['password']) <= 6){
+    } else if(!preg_match('/^[a-zA-Z0-9]{6,10}$/', $form['password'])){
         $error['password'] = 'length';
     }
     /*エラーがなければcheck.phpへ*/
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 </head>
 <body class="text-center">
   <main class="form-signin w-100 m-auto">
-    <h1 class="text-success">ひとこと掲示板</h1>
+    <h1 class="mb-5 text-success">ひとこと掲示板</h1>
     <h4 class="mb-3 fw-normal">新規登録</h4>
     <p class="fs-6">フォームに必要事項をご記入ください。</p>
     <form action="" method="post" enctype="multipart/form-data">
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <?php endif;?>
       </div>
       <div class="form-floating">
-        <input type="password"  name="password" size="10" maxlength="20" value="<?php echo h($form['password']); ?>" class="form-control" id="floatingPassword" placeholder="パスワード">
-        <label for="floatingPassword">パスワード(6以上文字以上)</label>
+        <input type="password"  name="password" size="10" maxlength="10" value="<?php echo h($form['password']); ?>" class="form-control" id="floatingPassword" placeholder="パスワード">
+        <label for="floatingPassword">パスワード(半角英数字6文字以上)</label>
         <?php if (isset($error['password']) && $error['password'] === 'blank'): ?>
             <p class="error">* パスワードを入力してください</p>
         <?php endif; ?>
         <?php if (isset($error['password']) && $error['password'] === 'length'): ?>
-            <p class="error">* パスワードは6文字以上で入力してください</p>
+            <p class="error">* パスワードは半角英数字で6文字以上10文字以下で入力してください</p>
         <?php endif; ?>
       </div>
       <button class="w-100 btn btn-lg btn-success mt-2" type="submit">入力内容を確認する</button>
