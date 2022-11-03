@@ -6,7 +6,11 @@ function h($value){
 
 /*データベースへ接続 */
 function dbconnect(){
+<<<<<<< HEAD
     $db = new mysqli('mysql209.phy.lolipop.lan','LAA1473327','Akb2101','LAA1473327-bbsdb');
+=======
+    $db = new mysqli('','','','');
+>>>>>>> 5b4c3d475ecd4f708087a37be8ee22e3aa853137
     if(!$db){
 		die($db->error);
 	}
@@ -14,7 +18,7 @@ function dbconnect(){
 }
 
 /*指定文字*/
-$ngword = ['死', 'しね', 'しぬ', '殺', 'コロス', 'さつがい', 'サツガイ', 'ちんこ', 'うんこ', 'まんこ', 'ちんちん', 'sex', 'SEX'];
+$ngword = [];
 
 /*strposを配列で使用*/
 function strpos_array($haystack, $needle, $is_index = FALSE){
